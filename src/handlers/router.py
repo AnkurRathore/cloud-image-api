@@ -1,6 +1,7 @@
 import json
 import logging
 from src.handlers.upload import handle_upload
+from src.handlers.list import handle_list
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -13,7 +14,9 @@ def lambda_handler(event, context):
     if http_method == "POST" and resource == "/images":
         return handle_upload(event, context)
     
-        
+    elif http_method == "GET" and resource == "/images":
+        return handle_list(event, context)
+       
     return {
         "statusCode": 404,
         "body": json.dumps({"error": f"Route not found: {http_method} {resource}"})
