@@ -3,6 +3,7 @@ import logging
 from src.handlers.upload import handle_upload
 from src.handlers.list import handle_list
 from src.handlers.download import handle_download
+from src.handlers.delete import handle_delete
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
@@ -20,6 +21,9 @@ def lambda_handler(event, context):
     
     elif http_method == "GET" and resource == "/images/{id}":
         return handle_download(event, context)
+
+    elif http_method == "DELETE" and resource == "/images/{id}":
+        return handle_delete(event, context)
        
     return {
         "statusCode": 404,
